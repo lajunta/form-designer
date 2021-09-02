@@ -5,14 +5,41 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="static/app.css">
   <title>Document</title>
 </head>
 
 <body>
+
+  <template id="text-input-template">
+    <style>
+      .title {
+        padding: 0.5rem;
+        font-weight: bold;
+        margin: 0.5rem 0;
+      }
+
+      input[type='text'] {
+        padding: 5px;
+      }
+    </style>
+    <div class="input-text">
+      <div class="title">title</div>
+      <div class="desc">desc</div>
+      <div class="control">
+        <input type="text">
+      </div>
+    </div>
+  </template>
+
+
   <h2>hello</h2>
-  <popup-info img="img/alt.png" data-text="Your card validation code (CVC)
-  is an extra security feature — it is the last 3 or 4 numbers on the
-  back of your card."></popup-info>
+  <form action="">
+    <text-input title="Hello My Friend" desc="What are you doing?" min=4 max=10></text-input>
+    <text-input title="Friend" desc="What are you doing?" min=3 max=8 required></text-input>
+    <text-input title="Mon Amie" desc="What are you doing?" min=4 max=10></text-input>
+    <input type="submit" class="">
+  </form>
   <script src="static/app.js"></script>
 </body>
 

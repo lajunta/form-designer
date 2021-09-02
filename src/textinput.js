@@ -1,58 +1,48 @@
+// create text-input 
+class TextInput extends HTMLElement {
+  tmpl = `
 
-class TextInput extends HTMLElement{
-  constructor(){
-    super()
-    const shadow = this.attachShadow({mode: 'open'})
-    const wrapper = document.createElement('span')
-    wrapper.setAttribute('class','wrapper')
-    const icon = document.createElement('span')
-    icon.setAttribute('class','icon')
-    icon.setAttribute('tabindex',0)
 
-    const img = icon.appendChild(document.createElement('img'))
-    img.src = this.hasAttribute('img') ? this.getAttribute('img') : 'img/default.png'
-    const info = document.createElement('span')
-    info.setAttribute('class','info')
-    console.log(this.getAttribute("img"))
-    info.textContent = this.getAttribute('data-text')
-    const style = document.createElement('style')
-
-    // set style for this web component
-    style.textContent = `
-    .wrapper {
-      position: relative;
+  <style>
+    .title {
+      padding: 0.5rem;
+      font-weight: bold;
+      margin: 0.5rem 0;
     }
 
-    .info {
-      font-size: 0.8rem;
-      width: 200px;
-      display: inline-block;
-      border: 1px solid black;
-      padding: 10px;
-      background: white;
-      border-radius: 10px;
-      opacity: 0;
-      transition: 0.6s all;
-      position: absolute;
-      bottom: 20px;
-      left: 10px;
-      z-index: 3;
+    input[type='text'] {
+      padding: 5px;
     }
+  </style>
+  <div class="input-text">
+    <div class="title">title</div>
+    <div class="desc">desc</div>
+    <div class="control">
+      <input type="text">
+    </div>
+  </div>
 
-    img {
-      width: 1.2rem;
+  `
+  constructor() {
+    super();
+    // let template = document.getElementById('text-input-template');
+    let template = document.createRange().createContextualFragment(this.tmpl)
+    let titleContent = this.getAttribute("title")
+    let descContent = this.getAttribute("desc")
+    let min = this.getAttribute("min")
+    let max = this.getAttribute("max")
+    let required = this.getAttribute("required")
+    let ti = template.cloneNode(true);
+    let control = ti.querySelector("input")
+    ti.querySelector(".title").innerHTML = titleContent
+    ti.querySelector(".desc").innerHTML = descContent
+    control.setAttribute("minlength", min)
+    control.setAttribute("maxlength", max)
+    if (required != null) {
+      control.setAttribute("required", "")
     }
-
-    .icon:hover + .info, .icon:focus + .info {
-      opacity: 1;
-    }
-    `
-    
-    // attach the created elements to the shadow DOM
-    shadow.appendChild(style)
-    shadow.appendChild(wrapper)
-    wrapper.appendChild(icon)
-    wrapper.appendChild(info)
+    this.attachShadow({ mode: 'open' }).appendChild(ti);
   }
 }
-customElements.define("text-input",TextInput)
+
+customElements.define('text-input', TextInput);
